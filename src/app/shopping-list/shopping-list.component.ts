@@ -24,13 +24,14 @@ export class ShoppingListComponent implements OnInit {
 
   loadShoppingItems() {
     this.service.listShoppingItems().subscribe(
-      (result) => this.shoppingItems = result.Items
+      (result) => this.shoppingItems = result.Items,
+      (e) => console.log(e)
     );
   }
 
   itemActiveStatusChanged(item: ShoppingItem) {
     item.isDone = !item.isDone;
-    this.service.updateShoppingItem(item).subscribe();
+    this.service.updateShoppingItem(item.id, item).subscribe();
   }
 
   openAddOrEditDialog(item: ShoppingItem | null = null) {

@@ -20,8 +20,12 @@ export class ShoppingListService {
         return this.http.get<ShoppingItem>(`${environment.shoppingApiUrl}/items/${id}`);
     }
 
-    updateShoppingItem(item: AddShoppingItem) {
-        return this.http.put(`${environment.shoppingApiUrl}/items`, item);
+    createShoppingItem(item: AddShoppingItem) {
+        return this.http.post(`${environment.shoppingApiUrl}/items`, item);
+    }
+
+    updateShoppingItem(id: number, item: AddShoppingItem) {
+        return this.http.put(`${environment.shoppingApiUrl}/items/${id}`, item);
     }
 
     deleteShoppingItem(id: number) {

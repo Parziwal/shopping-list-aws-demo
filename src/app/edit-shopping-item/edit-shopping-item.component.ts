@@ -41,14 +41,20 @@ export class EditShoppingItemComponent implements OnInit {
   }
 
   submit() {
+    if (!this.form.valid) {
+      return;
+    }
+
     let observable: Observable<Object>;
     if (this.data != null) {
-      observable = this.service.updateShoppingItem(<AddShoppingItem>{
-        ...this.form.value,
-        id: this.data.id
+      observable = this.service.updateShoppingItem(
+        this.data.id,
+        <AddShoppingItem>{
+        ...this.form.value
       });
     } else {
-      observable = this.service.updateShoppingItem(<AddShoppingItem>{
+      observable = this.service.createShoppingItem(
+        <AddShoppingItem>{
         ...this.form.value
       });
     }

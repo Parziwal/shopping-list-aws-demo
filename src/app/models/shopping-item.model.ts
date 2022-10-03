@@ -4,5 +4,5 @@ export interface ShoppingItem {
     description: string,
     amount: number,
     isDone: boolean,
-    createdAt: Date
+    createdAt: number
 }
