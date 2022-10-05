@@ -1,3 +1,4 @@
+import { TuiRootModule, TuiDialogModule, TuiAlertModule } from "@taiga-ui/core";
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
@@ -40,8 +41,11 @@ import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-
     MatCheckboxModule,
     MatFormFieldModule,
     MatDialogModule,
-    MatInputModule
-  ],
+    MatInputModule,
+      TuiRootModule,
+      TuiDialogModule,
+      TuiAlertModule
+],
   providers: [],
   bootstrap: [AppComponent]
 })
