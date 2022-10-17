@@ -31,6 +31,7 @@
               "src/assets",
               {
                 "glob": "**/*",
+                "ignore": ["*.png"],
                 "input": "node_modules/@taiga-ui/icons/src",
                 "output": "assets/taiga-ui/icons"
               }
