@@ -1,0 +1,66 @@
+.container {
+    max-width: 46.875rem;
+    display: flex;
+    flex-direction: column;
+}
+ 
+.item-header {
+    font: var(--tui-font-heading-6);
+    display: flex;
+    align-items: center;
+
+    &.done {
+        text-decoration: line-through;
+    }
+}
+
+.item-done-checkbox {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin: 0 1.5rem;
+    color: var(--tui-info-fill);
+    background: var(--tui-info-bg);
+    border-radius: 100%;
+    width: 3rem;
+    height: 3rem;
+    border: 4px solid var(--tui-info-fill);
+    transition: 100ms;
+
+    &.done {
+        color: var(--tui-success-fill);
+        background: var(--tui-success-bg);
+        border-color: var(--tui-success-fill);
+    }
+}
+
+.item-title {
+    margin-right: 1.5rem;
+    flex-grow: 1;
+}
+
+.item-description {
+    border-left: 1px solid var(--tui-base-04);
+    padding-left: 1rem;
+    margin-bottom: 2rem;
+
+    h1 {
+        font: var(--tui-font-text-l);
+        color: var(--tui-text-01);
+    }
+
+    p {
+        font: var(--tui-font-text-m);
+        color: var(--tui-text-02);
+    }
+}
+
+.action-btns {
+    display: flex;
+    justify-content: center;
+
+    .group {
+        width: 75%;
+    }
+}

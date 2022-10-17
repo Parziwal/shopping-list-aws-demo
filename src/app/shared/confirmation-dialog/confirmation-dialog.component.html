@@ -1,0 +1,18 @@
+<h1 class="text-center">{{ context.data }}</h1>
+<p class="buttons d-flex justify-content-center">
+    <button
+        tuiButton
+        class="tui-space_right-3"
+        appearance="secondary-destructive"
+        (click)="onClick(false)"
+    >
+        No
+    </button>
+    <button
+        tuiButton
+        appearance="primary"
+        (click)="onClick(true)"
+    >
+        Yes
+    </button>
+</p>

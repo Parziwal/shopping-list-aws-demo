@@ -1,8 +1,8 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { environment } from "src/environments/environment";
-import { AddShoppingItem } from "../models/add-shopping-item.model";
-import { ShoppingItem } from "../models/shopping-item.model";
+import { AddOrEditShoppingItem } from "./models/add-shopping-item.model";
+import { ShoppingItem } from "./models/shopping-item.model";
 
 
 @Injectable({
@@ -20,11 +20,11 @@ export class ShoppingListService {
         return this.http.get<ShoppingItem>(`${environment.shoppingApiUrl}/items/${id}`);
     }
 
-    createShoppingItem(item: AddShoppingItem) {
+    createShoppingItem(item: AddOrEditShoppingItem) {
         return this.http.post(`${environment.shoppingApiUrl}/items`, item);
     }
 
-    updateShoppingItem(id: number, item: AddShoppingItem) {
+    updateShoppingItem(id: number, item: AddOrEditShoppingItem) {
         return this.http.put(`${environment.shoppingApiUrl}/items/${id}`, item);
     }
 

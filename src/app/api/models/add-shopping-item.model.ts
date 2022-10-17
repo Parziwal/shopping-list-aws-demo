@@ -1,4 +1,4 @@
-export interface AddShoppingItem {
+export interface AddOrEditShoppingItem {
     name: string,
     description: string,
     amount: number,
