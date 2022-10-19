@@ -13,6 +13,8 @@ import { HomeComponent } from './home/home.component';
 import { ShoppingListComponent } from './list/shopping-list/shopping-list.component';
 import { ConfirmationDialogComponent } from './shared/confirmation-dialog/confirmation-dialog.component';
 import { AddEditShoppingItemComponent } from './list/add-edit-shopping-item/add-edit-shopping-item.component';
+import { LoginCallbackComponent } from './auth/login-callback/login-callback.component';
+import { LogoutCallbackComponent } from './auth/logout-callback/logout-callback.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +24,8 @@ import { AddEditShoppingItemComponent } from './list/add-edit-shopping-item/add-
     HeaderComponent,
     HomeComponent,
     AddEditShoppingItemComponent,
+    LoginCallbackComponent,
+    LogoutCallbackComponent,
   ],
   imports: [
     BrowserModule,

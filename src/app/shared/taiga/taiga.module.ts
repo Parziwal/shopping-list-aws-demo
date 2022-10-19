@@ -10,6 +10,7 @@ import {
 } from '@taiga-ui/core';
 import {
   TuiAccordionModule,
+  TuiAvatarModule,
   TuiFieldErrorPipeModule,
   TuiInputModule,
   TuiTextAreaModule,
@@ -31,6 +32,7 @@ import {
     TuiInputModule,
     TuiTextAreaModule,
     TuiButtonModule,
+    TuiAvatarModule,
   ],
   exports: [
     TuiRootModule,
@@ -44,6 +46,7 @@ import {
     TuiInputModule,
     TuiTextAreaModule,
     TuiButtonModule,
+    TuiAvatarModule,
   ],
 })
 
