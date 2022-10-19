@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from './auth/auth.guard';
 import { LoginCallbackComponent } from './auth/login-callback/login-callback.component';
 import { LogoutCallbackComponent } from './auth/logout-callback/logout-callback.component';
 import { HomeComponent } from './home/home.component';
@@ -13,11 +14,12 @@ const routes: Routes = [
   },
   {
     path: 'home',
-    component: HomeComponent
+    component: HomeComponent,
   },
   {
     path: 'shopping-list',
     component: ShoppingListComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'login-callback',

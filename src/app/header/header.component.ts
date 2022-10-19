@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { tuiAvatarOptionsProvider } from '@taiga-ui/kit';
-import { User } from 'oidc-client-ts';
 import { AuthService } from '../auth/auth.service';
 
 @Component({
@@ -15,24 +14,7 @@ import { AuthService } from '../auth/auth.service';
     }),
 ],
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent {
 
-  userInfo: User | null = null;
-
-  constructor(private authService: AuthService) { }
-  async ngOnInit() {
-    this.userInfo = await this.authService.getUser();
-  }
-
-  get isUserLoggedIn() {
-    return this.authService.isLoggedIn;
-  }
-
-  onLogout() {
-    this.authService.logout();
-  }
-
-  onLogin() {
-    this.authService.login();
-  }
+  constructor(public authService: AuthService) { }
 }

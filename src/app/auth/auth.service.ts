@@ -19,18 +19,20 @@ export class AuthService {
     return this.user != null && !this.user.expired;
   }
 
-  public async getUser(): Promise<User | null> {
-    this.user = await this.userManager.getUser();
-    return await this.userManager.getUser();
+  get userInfo() {
+    return this.user;
   }
 
   public login(): Promise<void> {
     return this.userManager.signinRedirect();
   }
 
-  public async loginCallback() {
+  public async refreshUser(): Promise<void> {
+    this.user = await this.userManager.getUser();
+  }
+
+  public async loginCallback(): Promise<void> {
     this.user = await this.userManager.signinRedirectCallback();
-    return this.user;
   }
 
   public renewToken(): Promise<User | null> {

@@ -37,17 +37,19 @@
         </li>
       </ul>
       <div class="flex-grow-1"></div>
-      <ng-container *ngIf="!isUserLoggedIn; else loggedInUserMenu">
-        <button class="btn btn-link nav-link" (click)="onLogin()">
-          Sign In
-        </button>
+      <ng-container *ngIf="!authService.isLoggedIn; else loggedInUserMenu">
+        <ul class="navbar-nav">
+          <button class="btn btn-link nav-link" (click)="authService.login()">
+            Sign In / Sign Up
+          </button>
+        </ul>
       </ng-container>
       <ng-template #loggedInUserMenu>
-        <tui-avatar [text]="userInfo?.profile?.name ?? ''" class="tui-space_top-1"></tui-avatar>
+        <tui-avatar [text]="authService.userInfo?.profile?.name ?? ''" class="me-2"></tui-avatar>
         <span class="navbar-text profile-name">
-          {{ userInfo?.profile?.name }}
+          {{ authService.userInfo?.profile?.name }}
         </span>
-        <button class="btn btn-link nav-link" (click)="onLogout()">
+        <button class="btn btn-link nav-link" (click)="authService.logout()">
           Log out
         </button>
       </ng-template>

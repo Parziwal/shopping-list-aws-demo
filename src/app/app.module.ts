@@ -36,7 +36,6 @@ import { LogoutCallbackComponent } from './auth/logout-callback/logout-callback.
     BrowserAnimationsModule,
     TaigaModule
   ],
-  providers: [],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
