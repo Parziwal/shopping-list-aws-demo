@@ -7,6 +7,7 @@ import {
   TuiSvgModule,
   TuiErrorModule,
   TuiLoaderModule,
+  TuiAlertModule,
 } from '@taiga-ui/core';
 import {
   TuiAccordionModule,
@@ -47,6 +48,7 @@ import {
     TuiTextAreaModule,
     TuiButtonModule,
     TuiAvatarModule,
+    TuiAlertModule,
   ],
 })
 

@@ -23,6 +23,14 @@ export class AuthService {
     return this.user;
   }
 
+  get authorizationHeaderValue(): string {
+    if (this.user) {
+      return this.user.token_type + ' ' + this.user.id_token;
+    }
+    
+    return '';
+  }
+
   public login(): Promise<void> {
     return this.userManager.signinRedirect();
   }

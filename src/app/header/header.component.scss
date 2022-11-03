@@ -3,6 +3,18 @@
 }
 
 .profile-name {
-    font: var(--tui-font-text-l);
-    margin-right: 10px;
+    font: var(--tui-font-text-xl);
+    color: var(--tui-text-01);
+}
+
+@media only screen and (max-width: 992px) {
+    .nav-item {
+        border-bottom: 1px solid lightgray;
+        text-align: center;
+        padding: 10px;
+    }
+
+    .nav-item:nth-last-child(1) {
+        border-bottom: 0px
+    }
 }

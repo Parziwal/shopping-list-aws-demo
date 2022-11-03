@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -15,6 +15,7 @@ import { ConfirmationDialogComponent } from './shared/confirmation-dialog/confir
 import { AddEditShoppingItemComponent } from './list/add-edit-shopping-item/add-edit-shopping-item.component';
 import { LoginCallbackComponent } from './auth/login-callback/login-callback.component';
 import { LogoutCallbackComponent } from './auth/logout-callback/logout-callback.component';
+import { AuthTokenInterceptor } from './auth/auth-token.interceptor';
 
 @NgModule({
   declarations: [
@@ -37,5 +38,12 @@ import { LogoutCallbackComponent } from './auth/logout-callback/logout-callback.
     TaigaModule
   ],
   bootstrap: [AppComponent],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthTokenInterceptor,
+      multi: true
+    }
+  ]
 })
 export class AppModule {}

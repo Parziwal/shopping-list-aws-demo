@@ -47,7 +47,8 @@
               "./node_modules/bootstrap/dist/js/bootstrap.js"
             ],
             "allowedCommonJsDependencies": [
-              "text-mask-core"
+              "text-mask-core",
+              "crypto-js"
             ]
           },
           "configurations": {
