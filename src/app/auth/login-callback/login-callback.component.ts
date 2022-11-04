@@ -22,7 +22,7 @@ export class LoginCallbackComponent implements OnInit {
   async ngOnInit() {
     this.loaderService.showLoader();
     await this.authService.loginCallback();
-    this.router.navigate(['']);
+    this.router.navigate(['shopping-list']);
     this.loaderService.hideLoader();
     this.alertService
     .open('', {

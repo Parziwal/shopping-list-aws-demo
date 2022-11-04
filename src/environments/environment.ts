@@ -2,11 +2,12 @@
 // `ng build` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
-import { UserManagerSettings } from "oidc-client-ts";
+import { UserManagerSettings, WebStorageStateStore } from "oidc-client-ts";
 
 export const environment = {
   production: false,
   shoppingApiUrl: 'https://p0uzstuh2d.execute-api.us-east-1.amazonaws.com/prod',
+  amazonCognitoDomain: 'shopping-list-demo',
   authSettings: {
     authority: 'https://cognito-idp.us-east-1.amazonaws.com/us-east-1_47jBqicW0',
     client_id: '5rt5duu78ta71jna0a43gio5d5',
@@ -18,9 +19,6 @@ export const environment = {
     revokeTokenTypes: ["refresh_token"],
     automaticSilentRenew: true,
     loadUserInfo: true,
-    metadataSeed: {
-      end_session_endpoint: 'https://shopping-list-demo.auth.us-east-1.amazoncognito.com/logout?client_id=5rt5duu78ta71jna0a43gio5d5&logout_uri=http://localhost:4200/logout-callback',
-    }
   } as UserManagerSettings
 };
 

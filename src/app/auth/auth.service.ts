@@ -1,6 +1,6 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { User, UserManager } from 'oidc-client-ts';
+import { User, UserManager, UserManagerSettings } from 'oidc-client-ts';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -11,15 +11,15 @@ export class AuthService {
   private userManager: UserManager;
   private user: User | null = null;
 
-  constructor(private http: HttpClient) {
-    this.userManager = new UserManager(environment.authSettings);
+  constructor() {
+    this.userManager = new UserManager(this.metadataSeed(environment.authSettings));
   }
 
   get isLoggedIn(): boolean {
     return this.user != null && !this.user.expired;
   }
 
-  get userInfo() {
+  get userInfo(): User | null {
     return this.user;
   }
 
@@ -31,8 +31,8 @@ export class AuthService {
     return '';
   }
 
-  public login(): Promise<void> {
-    return this.userManager.signinRedirect();
+  public async login(): Promise<void> {
+    this.userManager.signinRedirect();
   }
 
   public async refreshUser(): Promise<void> {
@@ -50,4 +50,22 @@ export class AuthService {
   public logout(): Promise<void> {
     return this.userManager.signoutRedirect();
   }
+
+  private metadataSeed(settings: UserManagerSettings): UserManagerSettings {
+    const params = new HttpParams()
+      .set('client_id', settings.client_id)
+      .set('logout_uri', settings.post_logout_redirect_uri!);
+
+    settings.metadataSeed = {
+      end_session_endpoint: `https://${environment.amazonCognitoDomain}.auth.us-east-1.amazoncognito.com/logout?${params.toString()}`,
+    };
+
+    return settings;
+  }
+}
+
+export function initializeAuthService(authService: AuthService) {
+  return async () => {
+    return await authService.refreshUser();
+  };
 }

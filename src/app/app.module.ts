@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -13,9 +13,7 @@ import { HomeComponent } from './home/home.component';
 import { ShoppingListComponent } from './list/shopping-list/shopping-list.component';
 import { ConfirmationDialogComponent } from './shared/confirmation-dialog/confirmation-dialog.component';
 import { AddEditShoppingItemComponent } from './list/add-edit-shopping-item/add-edit-shopping-item.component';
-import { LoginCallbackComponent } from './auth/login-callback/login-callback.component';
-import { LogoutCallbackComponent } from './auth/logout-callback/logout-callback.component';
-import { AuthTokenInterceptor } from './auth/auth-token.interceptor';
+import { AuthModule } from './auth/auth.module';
 
 @NgModule({
   declarations: [
@@ -24,9 +22,7 @@ import { AuthTokenInterceptor } from './auth/auth-token.interceptor';
     ConfirmationDialogComponent,
     HeaderComponent,
     HomeComponent,
-    AddEditShoppingItemComponent,
-    LoginCallbackComponent,
-    LogoutCallbackComponent,
+    AddEditShoppingItemComponent
   ],
   imports: [
     BrowserModule,
@@ -35,15 +31,9 @@ import { AuthTokenInterceptor } from './auth/auth-token.interceptor';
     ReactiveFormsModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    AuthModule,
     TaigaModule
   ],
   bootstrap: [AppComponent],
-  providers: [
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: AuthTokenInterceptor,
-      multi: true
-    }
-  ]
 })
 export class AppModule {}

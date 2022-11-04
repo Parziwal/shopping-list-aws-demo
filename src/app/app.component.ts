@@ -15,23 +15,18 @@ export class AppComponent implements OnInit, OnDestroy {
 
   constructor(
     private readonly loaderService: LoaderService,
-    private readonly authService: AuthService,
     private readonly changeDetector: ChangeDetectorRef) {}
 
-  async ngOnInit() {
+  async ngOnInit(): Promise<void> {
     this.loaderSub = this.loaderService.loadingStatus.subscribe(
       (status) => {
         this.loading = status;
         this.changeDetector.detectChanges();
       }
     );
-
-    this.loaderService.showLoader();
-    await this.authService.refreshUser();
-    this.loaderService.hideLoader();
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.loaderSub?.unsubscribe();
   }
 }

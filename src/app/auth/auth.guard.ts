@@ -10,13 +10,12 @@ export class AuthGuard implements CanActivate {
 
   constructor(private authService: AuthService) { }
 
-  canActivate(): boolean {
+  async canActivate(): Promise<boolean> {
       if(this.authService.isLoggedIn) {
         return true;
       }
-  
-      this.authService.login();
+
+      await this.authService.login();
       return false;
   }
-  
 }
