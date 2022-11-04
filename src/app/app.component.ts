@@ -1,22 +1,37 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { AuthService } from './auth/auth.service';
 import { LoaderService } from './shared/loader/loader.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnDestroy {
+
+  loading: boolean = true;
+  private loaderSub: Subscription | null = null;
 
   constructor(
-    public readonly loaderService: LoaderService,
-    public readonly authService: AuthService) {}
+    private readonly loaderService: LoaderService,
+    private readonly authService: AuthService,
+    private readonly changeDetector: ChangeDetectorRef) {}
 
   async ngOnInit() {
+    this.loaderSub = this.loaderService.loadingStatus.subscribe(
+      (status) => {
+        this.loading = status;
+        this.changeDetector.detectChanges();
+      }
+    );
+
     this.loaderService.showLoader();
     await this.authService.refreshUser();
     this.loaderService.hideLoader();
+  }
+
+  ngOnDestroy() {
+    this.loaderSub?.unsubscribe();
   }
 }
