@@ -15,7 +15,7 @@ import { AddOrEditShoppingItem } from 'src/app/api/models/add-shopping-item.mode
 export class AddEditShoppingItemComponent implements OnInit {
   itemForm = this.fb.group({
     name: ['', Validators.required],
-    amount: [1, Validators.required],
+    quantity: [1, Validators.required],
     description: ['', Validators.required],
   });
   loading = false;
@@ -31,7 +31,7 @@ export class AddEditShoppingItemComponent implements OnInit {
     if (this.context.data != null) {
       this.itemForm.patchValue({
         name: this.context.data.name,
-        amount: this.context.data.amount,
+        quantity: this.context.data.quantity,
         description: this.context.data.description,
       });
     }
@@ -50,13 +50,12 @@ export class AddEditShoppingItemComponent implements OnInit {
     if (this.context.data != null) {
       observable = this.service.updateShoppingItem(
         this.context.data.id,
-        {...this.itemForm.value as AddOrEditShoppingItem, isDone: this.context.data.isDone},
+        {...this.itemForm.value as AddOrEditShoppingItem, isActive: this.context.data.isActive},
       );
     } else {
-      observable = this.service.createShoppingItem({
-        ...(this.itemForm.value as AddOrEditShoppingItem),
-        isDone: false,
-      });
+      observable = this.service.createShoppingItem(
+        this.itemForm.value as AddOrEditShoppingItem
+      );
     }
 
     this.loading = true;

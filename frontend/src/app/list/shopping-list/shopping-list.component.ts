@@ -49,7 +49,7 @@ export class ShoppingListComponent implements OnInit {
   }
 
   itemChangeDoneStatus(item: ShoppingItem) {
-    item.isDone = !item.isDone;
+    item.isActive = !item.isActive;
     this.service.updateShoppingItem(item.id, item).subscribe();
   }
 

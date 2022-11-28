@@ -2,7 +2,7 @@ export interface ShoppingItem {
     id: number,
     name: string,
     description: string,
-    amount: number,
-    isDone: boolean,
+    quantity: number,
+    isActive: boolean,
     createdAt: number
 }

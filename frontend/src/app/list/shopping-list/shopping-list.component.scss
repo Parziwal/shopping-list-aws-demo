@@ -28,7 +28,7 @@
     border: 4px solid var(--tui-info-fill);
     transition: 100ms;
 
-    &.done {
+    &.active {
         color: var(--tui-success-fill);
         background: var(--tui-success-bg);
         border-color: var(--tui-success-fill);

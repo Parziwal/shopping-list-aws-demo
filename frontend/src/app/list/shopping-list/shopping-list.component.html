@@ -12,17 +12,17 @@
 
   <tui-accordion [rounded]="false">
     <tui-accordion-item borders="top-bottom" *ngFor="let item of shoppingItems">
-      <div class="item-header" [ngClass]="{ done: item.isDone }">
+      <div class="item-header" [ngClass]="{ active: item.isActive }">
         <div
           class="item-done-checkbox"
-          [ngClass]="{ done: item.isDone }"
+          [ngClass]="{ active: item.isActive }"
           (click)="$event.stopPropagation(); itemChangeDoneStatus(item)"
         >
           <tui-svg
             @insertRemoveTrigger
             src="tuiIconCheckLarge"
             class="icon"
-            *ngIf="item.isDone; else uncheckedItemIcon"
+            *ngIf="item.isActive; else uncheckedItemIcon"
           ></tui-svg>
           <ng-template #uncheckedItemIcon>
             <tui-svg
@@ -33,7 +33,7 @@
           </ng-template>
         </div>
         <div class="item-title">{{ item.name }}</div>
-        <div class="item-quantity">Qty: {{ item.amount }}</div>
+        <div class="item-quantity">Qty: {{ item.quantity }}</div>
       </div>
 
       <ng-template tuiAccordionItemContent>

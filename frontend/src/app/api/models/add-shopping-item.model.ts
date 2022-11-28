@@ -1,6 +1,6 @@
 export interface AddOrEditShoppingItem {
     name: string,
     description: string,
-    amount: number,
-    isDone: boolean | null
+    quantity: number,
+    isActive: boolean | null
 }
