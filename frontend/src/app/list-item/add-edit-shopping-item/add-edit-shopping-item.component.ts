@@ -5,7 +5,7 @@ import { ShoppingListService } from 'src/app/api/shoppping-list.service';
 import { POLYMORPHEUS_CONTEXT } from '@tinkoff/ng-polymorpheus';
 import { ShoppingItem } from 'src/app/api/models/shopping-item.model';
 import { Observable } from 'rxjs';
-import { AddOrEditShoppingItem } from 'src/app/api/models/add-shopping-item.model';
+import { AddOrEditShoppingItem } from 'src/app/api/models/add-or-edit-shopping-item.model';
 
 @Component({
   selector: 'app-add-edit-shopping-item',
@@ -22,17 +22,20 @@ export class AddEditShoppingItemComponent implements OnInit {
 
   constructor(
     private readonly fb: FormBuilder,
-    private readonly service: ShoppingListService,
+    private readonly api: ShoppingListService,
     @Inject(POLYMORPHEUS_CONTEXT)
-    public readonly context: TuiDialogContext<boolean, ShoppingItem | null>
+    public readonly context: TuiDialogContext<
+      boolean,
+      { listId: number; item: ShoppingItem | null }
+    >
   ) {}
 
   ngOnInit(): void {
-    if (this.context.data != null) {
+    if (this.context.data.item != null) {
       this.itemForm.patchValue({
-        name: this.context.data.name,
-        quantity: this.context.data.quantity,
-        description: this.context.data.description,
+        name: this.context.data.item.name,
+        quantity: this.context.data.item.quantity,
+        description: this.context.data.item.description,
       });
     }
   }
@@ -47,20 +50,24 @@ export class AddEditShoppingItemComponent implements OnInit {
     }
 
     let observable: Observable<Object>;
-    if (this.context.data != null) {
-      observable = this.service.updateShoppingItem(
-        this.context.data.id,
-        {...this.itemForm.value as AddOrEditShoppingItem, isActive: this.context.data.isActive},
+    if (this.context.data.item != null) {
+      observable = this.api.editShoppingListItem(
+        this.context.data.listId,
+        this.context.data.item.id,
+        {
+          ...(this.itemForm.value as AddOrEditShoppingItem),
+          isActive: this.context.data.item.isActive,
+        }
       );
     } else {
-      observable = this.service.createShoppingItem(
+      observable = this.api.addItemToShoppingList(
+        this.context.data.listId,
         this.itemForm.value as AddOrEditShoppingItem
       );
     }
 
     this.loading = true;
-    observable.subscribe(() =>
-    {
+    observable.subscribe(() => {
       this.loading = false;
       this.context.completeWith(true);
     });

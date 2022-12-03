@@ -1,0 +1,73 @@
+<div class="container">
+  <button
+    tuiButton
+    appearance="primary"
+    size="m"
+    icon="tuiIconPlusLarge"
+    class="mb-4 align-self-end"
+    (click)="openAddOrEditDialog()"
+  >
+    Add shopping item
+  </button>
+
+  <tui-accordion *ngIf="shoppingItems.length > 0; else emptyList">
+    <tui-accordion-item *ngFor="let item of shoppingItems">
+      <div class="item-header" [ngClass]="{ active: item.isActive }">
+        <div
+          class="item-done-checkbox"
+          [ngClass]="{ active: item.isActive }"
+          (click)="$event.stopPropagation(); itemChangeDoneStatus(item)"
+        >
+          <tui-svg
+            @insertRemoveTrigger
+            src="tuiIconCheckLarge"
+            class="icon"
+            *ngIf="item.isActive; else uncheckedItemIcon"
+          ></tui-svg>
+          <ng-template #uncheckedItemIcon>
+            <tui-svg
+              @insertRemoveTrigger
+              src="tuiIconHrLarge"
+              class="icon"
+            ></tui-svg>
+          </ng-template>
+        </div>
+        <div class="item-title">{{ item.name }}</div>
+        <div class="item-quantity">Qty: {{ item.quantity }}</div>
+      </div>
+
+      <ng-template tuiAccordionItemContent>
+        <div class="item-description">
+          <h1>Description</h1>
+          <p>{{ item.description }}</p>
+        </div>
+        <div class="action-btns">
+          <div tuiGroup class="group" [collapsed]="true">
+            <button
+              tuiButton
+              appearance="secondary"
+              size="m"
+              icon="tuiIconEditLarge"
+              (click)="openAddOrEditDialog(item)"
+            >
+              Edit
+            </button>
+            <button
+              tuiButton
+              appearance="secondary-destructive"
+              size="m"
+              icon="tuiIconTrashLarge"
+              (click)="deleteItem(item)"
+            >
+              Delete
+            </button>
+          </div>
+        </div>
+      </ng-template>
+    </tui-accordion-item>
+  </tui-accordion>
+
+  <ng-template #emptyList>
+    <h1 class="text-center bg-white rounded-pill">No item found</h1>
+  </ng-template>
+</div>

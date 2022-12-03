@@ -1,7 +1,6 @@
 const AWS = require("aws-sdk");
 const dynamo = new AWS.DynamoDB.DocumentClient();
 const SHOPPING_LIST_TABLE = process.env.SHOPPING_LIST_TABLE;
-const SHOPPING_LIST_ITEM_TABLE = process.env.SHOPPING_LIST_ITEM_TABLE;
 
 exports.handler = async (event, context, callback) => {
   let result;
@@ -18,17 +17,28 @@ exports.handler = async (event, context, callback) => {
 
     if (!Object.values(shoppingList.Item.users)[1].includes(event.user.email)) {
       throw {
-        message: "You don't have permission to view the list!",
+        message: "You don't have permission to remove user from the list!",
+      };
+    }
+
+    if (!Object.values(shoppingList.Item.users)[1].length == 1) {
+      throw {
+        message: "You can't remove yourself from the list!",
       };
     }
 
     result = await dynamo
-      .scan({
-        TableName: SHOPPING_LIST_ITEM_TABLE,
-        FilterExpression: "#listId = :listId",
-        ExpressionAttributeValues: { ":listId": event.listId },
+      .update({
+        TableName: SHOPPING_LIST_TABLE,
+        Key: {
+          id: event.listId,
+        },
+        UpdateExpression: "DELETE #users :userEmail",
         ExpressionAttributeNames: {
-          "#listId": "listId",
+          "#users": "users",
+        },
+        ExpressionAttributeValues: {
+          ":userEmail": dynamo.createSet([event.body.userEmail]),
         },
       })
       .promise();

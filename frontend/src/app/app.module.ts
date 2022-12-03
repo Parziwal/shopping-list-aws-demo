@@ -10,19 +10,25 @@ import { TaigaModule } from './shared/taiga/taiga.module';
 
 import { HeaderComponent } from './header/header.component';
 import { HomeComponent } from './home/home.component';
-import { ShoppingListComponent } from './list/shopping-list/shopping-list.component';
+import { ShoppingListItemComponent } from './list-item/shopping-list-item/shopping-list-item.component';
 import { ConfirmationDialogComponent } from './shared/confirmation-dialog/confirmation-dialog.component';
-import { AddEditShoppingItemComponent } from './list/add-edit-shopping-item/add-edit-shopping-item.component';
+import { AddEditShoppingItemComponent } from './list-item/add-edit-shopping-item/add-edit-shopping-item.component';
 import { AuthModule } from './auth/auth.module';
+import { ShoppingListComponent } from './list/shopping-list/shopping-list.component';
+import { AddShoppingListComponent } from './list/add-shopping-list/add-shopping-list.component';
+import { AddUserToListComponent } from './list/add-user-to-list/add-user-to-list.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ShoppingListComponent,
+    ShoppingListItemComponent,
     ConfirmationDialogComponent,
     HeaderComponent,
     HomeComponent,
-    AddEditShoppingItemComponent
+    AddEditShoppingItemComponent,
+    AddShoppingListComponent,
+    AddUserToListComponent
   ],
   imports: [
     BrowserModule,
@@ -32,7 +38,7 @@ import { AuthModule } from './auth/auth.module';
     AppRoutingModule,
     BrowserAnimationsModule,
     AuthModule,
-    TaigaModule
+    TaigaModule,
   ],
   bootstrap: [AppComponent],
 })

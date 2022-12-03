@@ -2,17 +2,45 @@ resource "aws_api_gateway_rest_api" "this" {
   name = "shopping_list_api"
 }
 
-module "items" {
+module "list" {
   source    = "../modules/api_resource"
   api_id    = aws_api_gateway_rest_api.this.id
   parent_id = aws_api_gateway_rest_api.this.root_resource_id
-  path_part = "items"
+  path_part = "list"
 }
 
-module "item_id" {
+module "list_id" {
   source    = "../modules/api_resource"
   api_id    = aws_api_gateway_rest_api.this.id
-  parent_id = module.items.resource_id
+  parent_id = module.list.resource_id
+  path_part = "{listId}"
+}
+
+module "list_id_add_user" {
+  source    = "../modules/api_resource"
+  api_id    = aws_api_gateway_rest_api.this.id
+  parent_id = module.list_id.resource_id
+  path_part = "add-user"
+}
+
+module "list_id_remove_user" {
+  source    = "../modules/api_resource"
+  api_id    = aws_api_gateway_rest_api.this.id
+  parent_id = module.list_id.resource_id
+  path_part = "remove-user"
+}
+
+module "list_id_item" {
+  source    = "../modules/api_resource"
+  api_id    = aws_api_gateway_rest_api.this.id
+  parent_id = module.list_id.resource_id
+  path_part = "item"
+}
+
+module "list_id_item_id" {
+  source    = "../modules/api_resource"
+  api_id    = aws_api_gateway_rest_api.this.id
+  parent_id = module.list_id_item.resource_id
   path_part = "{itemId}"
 }
 
@@ -28,10 +56,15 @@ resource "aws_api_gateway_deployment" "this" {
   }
 
   depends_on = [
-    module.items_get_api_method.integration,
-    module.items_post_api_method.integration,
-    module.item_id_put_api_method.integration,
-    module.item_id_delete_api_method.integration
+    module.list_get_method.integration,
+    module.list_post_method.integration,
+    module.list_delete_method.integration,
+    module.add_user_to_list_post_method.integration,
+    module.remove_user_from_list_post_method.integration,
+    module.item_get_method.integration,
+    module.item_post_method.integration,
+    module.item_id_put_method.integration,
+    module.item_id_delete_method.integration,
   ]
 
   lifecycle {

@@ -5,65 +5,57 @@
     size="m"
     icon="tuiIconPlusLarge"
     class="mb-4 align-self-end"
-    (click)="openAddOrEditDialog()"
+    (click)="newShoppingList()"
   >
-    Add shopping item
+    New list
   </button>
 
-  <tui-accordion [rounded]="false">
-    <tui-accordion-item borders="top-bottom" *ngFor="let item of shoppingItems">
-      <div class="item-header" [ngClass]="{ active: item.isActive }">
-        <div
-          class="item-done-checkbox"
-          [ngClass]="{ active: item.isActive }"
-          (click)="$event.stopPropagation(); itemChangeDoneStatus(item)"
+  <div
+    class="row justify-content-between"
+    *ngIf="shoppingLists.length > 0; else emptyList"
+  >
+    <tui-island
+      class="col-md-5 mb-3"
+      [hoverable]="true"
+      *ngFor="let list of shoppingLists"
+      (click)="shoppingListClicked(list.id)"
+    >
+      <div class="tui-island__figure justify-content-between">
+        <button
+          tuiButton
+          size="xs"
+          type="button"
+          icon="tuiIconPlus"
+          (click)="$event.stopPropagation(); addUserToList(list.id)"
         >
-          <tui-svg
-            @insertRemoveTrigger
-            src="tuiIconCheckLarge"
-            class="icon"
-            *ngIf="item.isActive; else uncheckedItemIcon"
-          ></tui-svg>
-          <ng-template #uncheckedItemIcon>
-            <tui-svg
-              @insertRemoveTrigger
-              src="tuiIconHrLarge"
-              class="icon"
-            ></tui-svg>
-          </ng-template>
-        </div>
-        <div class="item-title">{{ item.name }}</div>
-        <div class="item-quantity">Qty: {{ item.quantity }}</div>
+          Add user
+        </button>
+        <button
+          tuiIconButton
+          size="xs"
+          type="button"
+          appearance="icon"
+          icon="tuiIconCloseLarge"
+          (click)="$event.stopPropagation(); deleteShoppingList(list)"
+        ></button>
       </div>
+      <h3 class="tui-island__title mt-3">{{ list.name }}</h3>
+      <div class="tui-island__paragraph mt-3">
+        <tui-tag
+          *ngFor="let userEmail of list.users; let i = index"
+          size="l"
+          class="tag me-1 mt-1"
+          [autoColor]="true"
+          [value]="userEmail"
+          [removable]="list.users.length > 1"
+          (click)="$event.stopPropagation()"
+          (edited)="removeUserFromList(list, userEmail)"
+        ></tui-tag>
+      </div>
+    </tui-island>
+  </div>
 
-      <ng-template tuiAccordionItemContent>
-        <div class="item-description">
-          <h1>Description</h1>
-          <p>{{ item.description }}</p>
-        </div>
-        <div class="action-btns">
-          <div tuiGroup class="group" [collapsed]="true">
-            <button
-              tuiButton
-              appearance="secondary"
-              size="m"
-              icon="tuiIconEditLarge"
-              (click)="openAddOrEditDialog(item)"
-            >
-              Edit
-            </button>
-            <button
-              tuiButton
-              appearance="secondary-destructive"
-              size="m"
-              icon="tuiIconTrashLarge"
-              (click)="deleteItem(item)"
-            >
-              Delete
-            </button>
-          </div>
-        </div>
-      </ng-template>
-    </tui-accordion-item>
-  </tui-accordion>
+  <ng-template #emptyList>
+    <h1 class="text-center bg-white rounded-pill">No list found</h1>
+  </ng-template>
 </div>

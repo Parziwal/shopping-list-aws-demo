@@ -4,6 +4,7 @@ import { AuthGuard } from './auth/auth.guard';
 import { LoginCallbackComponent } from './auth/login-callback/login-callback.component';
 import { LogoutCallbackComponent } from './auth/logout-callback/logout-callback.component';
 import { HomeComponent } from './home/home.component';
+import { ShoppingListItemComponent } from './list-item/shopping-list-item/shopping-list-item.component';
 import { ShoppingListComponent } from './list/shopping-list/shopping-list.component';
 
 const routes: Routes = [
@@ -19,7 +20,12 @@ const routes: Routes = [
   {
     path: 'shopping-list',
     component: ShoppingListComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'shopping-list/:listId',
+    component: ShoppingListItemComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: 'login-callback',
