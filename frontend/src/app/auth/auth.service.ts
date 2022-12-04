@@ -32,15 +32,7 @@ export class AuthService {
   }
 
   public async login(): Promise<void> {
-    var someState = {
-      message: window.location.href,
-      signUpFlag: true
-    };
-    this.userManager.signinRedirect(
-      {
-        state: someState,
-      }
-    );
+    this.userManager.signinRedirect();
   }
 
   public async refreshUser(): Promise<void> {
