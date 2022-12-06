@@ -12,8 +12,8 @@ resource "aws_cloudfront_origin_access_control" "this" {
 
 resource "aws_cloudfront_distribution" "this" {
   origin {
-    domain_name = aws_s3_bucket.this.bucket_regional_domain_name
-    origin_id   = local.s3_origin_id
+    domain_name              = aws_s3_bucket.this.bucket_regional_domain_name
+    origin_id                = local.s3_origin_id
     origin_access_control_id = aws_cloudfront_origin_access_control.this.id
   }
 
@@ -48,8 +48,8 @@ resource "aws_cloudfront_distribution" "this" {
   }
 
   custom_error_response {
-    error_code = "403"
-    response_code = "200"
+    error_code         = "403"
+    response_code      = "200"
     response_page_path = "/index.html"
   }
 }

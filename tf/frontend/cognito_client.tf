@@ -19,6 +19,6 @@ resource "aws_cognito_user_pool_client" "prod_client" {
 
 resource "aws_cognito_user_pool_ui_customization" "local_ui" {
   client_id    = aws_cognito_user_pool_client.prod_client.id
-  image_file   = filebase64("${path.module}/../assets/shopping-list-logo.png")
+  image_file   = filebase64("${path.module}/${var.app_logo_path}")
   user_pool_id = tolist(data.aws_cognito_user_pools.this.ids)[0]
 }
