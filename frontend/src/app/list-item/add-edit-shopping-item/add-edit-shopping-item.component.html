@@ -1,4 +1,4 @@
-<h1>{{ this.context.data != null ? "Edit" : "Create" }} shopping item</h1>
+<h1>{{ this.context.data.item != null ? "Edit" : "Create" }} shopping item</h1>
 <form [formGroup]="itemForm" (ngSubmit)="submit()">
   <div class="tui-row tui-row_sme">
     <div class="tui-col_12">

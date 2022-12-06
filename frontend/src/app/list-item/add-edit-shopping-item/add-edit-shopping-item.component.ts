@@ -16,7 +16,7 @@ export class AddEditShoppingItemComponent implements OnInit {
   itemForm = this.fb.group({
     name: ['', Validators.required],
     quantity: [1, Validators.required],
-    description: ['', Validators.required],
+    description: [''],
   });
   loading = false;
 
