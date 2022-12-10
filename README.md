@@ -2,7 +2,7 @@
 
 ## Intorduction
 
-This is a sample or demo application for AWS development. The purpose of the app to learn and try out most of the AWS cloud computing services.
+This is a sample or demo application for AWS development. The purpose of the app to learn and try out most of the __AWS__ cloud computing services and __Terraform__ deployment workflows.
 
 The application implements a simple __Shopping List__ app, in which users can manage their shopping lists in one place and share with others.
 
